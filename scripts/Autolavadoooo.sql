@@ -118,3 +118,12 @@ SELECT COUNT(*) FROM autolavado.vehiculo;
 SELECT SUM(precio) FROM autolavado.servicio;
 SELECT MAX(precio), MIN(precio) FROM autolavado.servicio;
 SELECT autolavado.cliente.nombre, autolavado.servicio.nombre FROM autolavado.cliente INNER JOIN autolavado.servicio ON autolavado.cliente.nombre = autolavado.servicio.nombre;
+
+SELECT e.nombre AS empleado, d.nombre AS departamento FROM empleados e JOIN departamentos d ON e.departamento_id = d.id WHERE e.salario > 50000;
+SELECT e.nombre AS empleado, e.salario FROM empleados e WHERE e.salario > (SELECT AVG(salario) FROM empleados WHERE departamento_id = e.departamento_id);
+SELECT departamento_id, AVG(salario) AS salario_promedio FROM empleados GROUP BY departamento_id;
+SELECT nombre, fecha_contratacion FROM empleados WHERE DATEPART(YEAR, fecha_contratacion) = 2023;
+SELECT nombre, 'Empleado' AS tipo FROM empleados UNION SELECT nombre, 'Cliente' AS tipo FROM clientes;
+SELECT nombre, direccion FROM clientes WHERE direccion LIKE '%Calle%';
+SELECT nombre FROM productos WHERE EXISTS (SELECT 1 FROM ventas WHERE producto_id = productos.id);
+SELECT nombre, salario FROM empleados ORDER BY salario DESC LIMIT 10 OFFSET 10;
