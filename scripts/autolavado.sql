@@ -10,12 +10,68 @@ create table if not exists autolavado.cliente(
 
 CREATE TABLE if not exists autolavado.vehiculo (
     id_vehiculo INT NOT NULL AUTO_INCREMENT,
-    marca VARCHAR(30) NOT NULL,
-    modelo VARCHAR(30) NOT NULL,
-    color VARCHAR(30) NOT NULL,
+    -- marca VARCHAR(30) NOT NULL,
+    id_marca int references marca_auto(id_marca),
+	-- modelo VARCHAR(30) NOT NULL,
+    id_modelo int references modelo(id_modelo),
+	-- color VARCHAR(30) NOT NULL,
+    id_color int references color(id_color),
     placa VARCHAR(30) NOT NULL,
     PRIMARY KEY(id_vehiculo)
 );
+ALTER TABLE vehiculo ADD COLUMN id_marca INT REFERENCES marca_auto(id_marca);
+alter table autolavado.vehiculo drop column marca_auto;
+
+create table marca_auto(
+	id_marca int auto_increment,
+    marca_auto varchar(30),
+    primary key(id_marca)
+);
+insert into marca_auto(marca) values
+("toyota"),
+("Ford"),
+("Chevrolet"),
+("Honda"),
+("Volkswagen"),
+("Nissan"),
+("Hyundai"),
+("BMW"),
+("Mercedes-Benz"),
+("Audi");
+
+update veiculo set id_marca = 1 where "id_vehiculo" = 1;
+update vehiculo set id_marca = 2 where "id_vehiculo" = 2;
+update vehiculo set id_marca = 3 where "id_vehiculo" = 3;
+update vehiculo set id_marca = 4 where "id_vehiculo" = 4;
+update vehiculo set id_marca = 5 where "id_vehiculo" = 5;
+update vehiculo set id_marca = 6 where "id_vehiculo" = 6;
+update vehiculo set id_marca = 7 where "id_vehiculo" = 7;
+update vehiculo set id_marca = 8 where "id_vehiculo" = 8;
+update vehiculo set id_marca = 9 where "id_vehiculo" = 9;
+update vehiculo set id_marca = 1 where "id_vehiculo" =10;
+
+
+
+ALTER TABLE vehiculo ADD COLUMN id_modelo INT REFERENCES modelo(id_modelo);
+alter table autolavado.vehiculo drop column modelo;
+
+create table modelo(
+	id_modelo int auto_increment,
+    modelo varchar(30),
+    primary key(id_modelo)
+);
+insert into modelo(modelo) values
+("Corolla"),
+("Focus"),
+("Cruze"),
+("Civic"),
+("Jetta"),
+("Sentra"),
+("Elantra"),
+("Serie 3"),
+("Clase C"),
+("A4");
+
 
 CREATE TABLE if not exists autolavado.empleado (
     id_empleado INT NOT NULL AUTO_INCREMENT,
@@ -41,18 +97,7 @@ ALTER TABLE autolavado.servicio
     REFERENCES autolavado.cliente(id_cliente) 
     ON UPDATE CASCADE 
     ON DELETE CASCADE;
-
-ALTER TABLE autolavado.servicio 
-    ADD FOREIGN KEY (id_vehiculo) 
-    REFERENCES autolavado.vehiculo(id_vehiculo) 
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE;
-
-ALTER TABLE autolavado.servicio 
-    ADD FOREIGN KEY (id_empleado) 
-    REFERENCES autolavado.empleado(id_empleado) 
-    ON UPDATE CASCADE 
-    ON DELETE CASCADE;
+    
 INSERT INTO autolavado.cliente (nombre, correo, telefono, direccion) VALUES
     ('Juan Perez', 'juan@example.com', '5551234567', 'Calle 123, Ciudad'),
     ('María García', 'maria@example.com', '5559876543', 'Avenida 456, Pueblo'),
@@ -126,4 +171,4 @@ SELECT nombre, fecha FROM servicio WHERE YEAR(fecha) = 2024;
 SELECT nombre, 'Empleado' AS tipo FROM empleado UNION SELECT nombre, 'Cliente' AS tipo FROM cliente;
 SELECT nombre, direccion FROM cliente WHERE direccion LIKE '%Calle%';
 SELECT v.marca AS nombre FROM vehiculo v WHERE EXISTS (SELECT 1 FROM servicio s WHERE s.id_vehiculo = v.id_vehiculo);
-SELECT nombre, precio FROM servicio ORDER BY precio DESC LIMIT 10 OFFSET 10;
+SELECT nombre, precio FROM servicio ORDER BY precio DESC LIMIT 5 OFFSET 5 ;
