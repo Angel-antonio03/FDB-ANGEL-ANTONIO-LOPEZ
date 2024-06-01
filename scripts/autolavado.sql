@@ -39,7 +39,7 @@ insert into marca_auto(marca) values
 ("Mercedes-Benz"),
 ("Audi");
 
-update veiculo set id_marca = 1 where "id_vehiculo" = 1;
+update vehiculo set id_marca = 1 where "id_vehiculo" = 1;
 update vehiculo set id_marca = 2 where "id_vehiculo" = 2;
 update vehiculo set id_marca = 3 where "id_vehiculo" = 3;
 update vehiculo set id_marca = 4 where "id_vehiculo" = 4;
@@ -71,6 +71,46 @@ insert into modelo(modelo) values
 ("Serie 3"),
 ("Clase C"),
 ("A4");
+update vehiculo set id_modelo = 1 where "id_vehiculo" = 1;
+update vehiculo set id_modelo = 2 where "id_vehiculo" = 2;
+update vehiculo set id_modelo = 3 where "id_vehiculo" = 3;
+update vehiculo set id_modelo = 4 where "id_vehiculo" = 4;
+update vehiculo set id_modelo = 5 where "id_vehiculo" = 5;
+update vehiculo set id_modelo = 6 where "id_vehiculo" = 6;
+update vehiculo set id_modelo = 7 where "id_vehiculo" = 7;
+update vehiculo set id_modelo = 8 where "id_vehiculo" = 8;
+update vehiculo set id_modelo = 9 where "id_vehiculo" = 9;
+update vehiculo set id_modelo = 1 where "id_vehiculo" =10;
+
+ALTER TABLE vehiculo ADD COLUMN id_color INT REFERENCES color(id_color);
+alter table autolavado.vehiculo drop column color;
+
+create table color(
+	id_color int auto_increment,
+    color varchar(30),
+    primary key(id_color)
+);
+insert into color(color) values
+("Azul"),
+("Rojo"),
+("Blanco"),
+("Negro"),
+("Gris"),
+("Plateado"),
+("Verde"),
+("Dorado"),
+("Plata"),
+("Azul Oscuro");
+update vehiculo set id_color = 1 where "id_vehiculo" = 1;
+update vehiculo set id_color = 2 where "id_vehiculo" = 2;
+update vehiculo set id_color = 3 where "id_vehiculo" = 3;
+update vehiculo set id_color = 4 where "id_vehiculo" = 4;
+update vehiculo set id_color = 5 where "id_vehiculo" = 5;
+update vehiculo set id_color = 6 where "id_vehiculo" = 6;
+update vehiculo set id_color = 7 where "id_vehiculo" = 7;
+update vehiculo set id_color = 8 where "id_vehiculo" = 8;
+update vehiculo set id_color = 9 where "id_vehiculo" = 9;
+update vehiculo set id_color = 1 where "id_vehiculo" =10;
 
 
 CREATE TABLE if not exists autolavado.empleado (
@@ -78,6 +118,7 @@ CREATE TABLE if not exists autolavado.empleado (
     nombre VARCHAR(30) NOT NULL,
     telefono varchar (12),
     correo_electronico VARCHAR(40) NOT NULL,
+    salario DECIMAL(10, 2) NOT NULL,
     PRIMARY KEY(id_empleado)
 );
 
@@ -124,17 +165,17 @@ INSERT INTO autolavado.vehiculo (marca, modelo, color, placa) VALUES
     ('Audi', 'A4', 'Azul Oscuro', 'BCD890');
 
 -- Insertar registros en la tabla empleado
-INSERT INTO autolavado.empleado (nombre, telefono, correo_electronico) VALUES
-    ('José López', '5551234567', 'jose@example.com'),
-    ('María Rodríguez', '5559876543', 'maria@example.com'),
-    ('Carlos Martínez',' 5555678901', 'carlos@example.com'),
-    ('Laura Gómez', '5552345678', 'laura@example.com'),
-    ('Juan Hernández',' 5558765432', 'juan@example.com'),
-    ('Ana Díaz', '5553456789', 'ana@example.com'),
-    ('David Torres', '5556789012', 'david@example.com'),
-    ('Sofía García', '5554321098', 'sofia@example.com'),
-    ('Javier Pérez', '5558901234', 'javier@example.com'),
-    ('Elena Ramírez', '5552109876', 'elena@example.com');
+INSERT INTO empleado (nombre, telefono, correo_electronico, salario) VALUES
+    ('José López', '5551234567', 'jose@example.com', 3000.00),
+    ('María Rodríguez', '5559876543', 'maria@example.com', 3200.00),
+    ('Carlos Martínez', '5555678901', 'carlos@example.com', 3100.00),
+    ('Laura Gómez', '5552345678', 'laura@example.com', 3300.00),
+    ('Juan Hernández', '5558765432', 'juan@example.com', 3400.00),
+    ('Ana Díaz', '5553456789', 'ana@example.com', 3200.00),
+    ('David Torres', '5556789012', 'david@example.com', 3100.00),
+    ('Sofía García', '5554321098', 'sofia@example.com', 3500.00),
+    ('Javier Pérez', '5558901234', 'javier@example.com', 3600.00),
+    ('Elena Ramírez', '5552109876', 'elena@example.com', 3700.00);
 
 -- Insertar registros en la tabla servicio
 INSERT INTO autolavado.servicio (id_empleado, id_cliente, id_vehiculo, fecha, nombre, precio) VALUES
